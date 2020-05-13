@@ -26,4 +26,4 @@ Imports:
   iGraphMatch,
   Matrix,
   parallel
-Remotes: dpmcsuss/iGraphMatch
+Remotes: dpmcsuss/iGraphMatch@dev
