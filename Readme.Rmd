@@ -29,7 +29,7 @@ Left:
 
 ```{r er_plot}
 make_er_plot()
-```\
+```
 
 Right:
 
