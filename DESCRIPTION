@@ -26,4 +26,4 @@ Imports:
   iGraphMatch,
   Matrix,
   parallel
-Remotes: git::git@github.com:dpmcsuss/iGraphMatch.git
+Remotes: dpmcsuss/iGraphMatch
