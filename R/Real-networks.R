@@ -427,7 +427,8 @@ plot_cum_acc_by_norm_deg <- function(
       values = scales::hue_pal(h = c(180, 270))(6),
       labels = labels, name = "p") +
     scale_linetype_manual(values = 6:1, labels = labels,  name = "p") +
-    facet_grid(Data ~ .)
+    facet_grid(Data ~ .) +
+    theme_bw()
 
   # pdf("Highdegree.pdf", width = 6, height = 6)
   p

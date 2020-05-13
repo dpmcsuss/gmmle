@@ -1,0 +1,65 @@
+---
+title: "Readme"
+author: "Daniel Sussman"
+date: "5/13/2020"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GMMLE Package
+
+A package for running simulations and creating plots found in [Maximum Likelihood Estimation and Graph Matching in Errorfully Observed Networks](https://arxiv.org/abs/1812.10519).
+
+```{r install, eval=FALSE}
+devtools::install_github("dpmcsuss/gmmle")
+```
+
+Load the library.
+
+```{r load}
+library(gmmle)
+```
+
+### Figure 1
+
+Left:
+
+```{r er_plot}
+make_er_plot()
+```\
+
+Right:
+
+```{r ws_plot}
+make_ws_plot()
+```
+
+
+### Figure 2
+
+```{r model_compare_plot}
+make_model_compare_plot()
+```
+
+### Figure 3
+
+```{r prob_bound_norm_disag}
+plot_prob_bound_norm_disag()
+```
+
+### Figure 4
+
+```{r matching_errors}
+plot_matching_errors()
+```
+
+### Figure 5
+
+```{r cum_acc_by_norm_deg}
+plot_cum_acc_by_norm_deg()
+```
+
+
