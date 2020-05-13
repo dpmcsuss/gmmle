@@ -1,0 +1,29 @@
+Package: gmmle
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.1.0
+Author: Jesus Arroyo
+Maintainer: Daniel Sussman <sussman@bu.edu>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0
+Depends: R (>= 3.5.0)
+Imports:
+  magrittr,
+  ggplot2,
+  purrr,
+  dplyr,
+  tidyr,
+  forcats,
+  scales,
+  stringr,
+  tibble,
+  tidyverse,
+  igraph,
+  iGraphMatch,
+  Matrix,
+  parallel
+Remotes: git::git@github.com:dpmcsuss/iGraphMatch.git
