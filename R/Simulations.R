@@ -147,7 +147,7 @@ make_er_plot <- function(data = NULL){
 #' @export
 make_ws_plot <- function(data = NULL){
   if(!is.null(data)){
-    parasim_ws <- data
+    parsim_ws <- data
   }
   flabel <- c("p.max" = "Probability bound", "mean"= "Normalized mean disag.")
   labs <- c("WS(n, d, 0)", "WS(n, d, 0.05)","WS(n, d, 0.1)","WS(n, d, 0.25)","WS(n, d, 1)")
@@ -180,10 +180,10 @@ make_ws_plot <- function(data = NULL){
 #' @export
 make_model_compare_plot <- function(data5 = NULL, data50 = NULL){
   if(!is.null(data5)){
-    parasim5 <- data5
+    parsim5 <- data5
   }
   if(!is.null(data50)){
-    parasim50 <- data50
+    parsim50 <- data50
   }
   binded_simulations <- dplyr::bind_rows(
       parsim5 %>% dplyr::bind_rows() %>% dplyr::mutate(d = "d=5"),
