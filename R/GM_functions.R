@@ -90,9 +90,6 @@ kshuffle_mean_sd <- function(k, G, m = 1000) {
 #' @export
 simulation_instance <- function(k_grid = c(2, 10, 50, 100, 200, 400),
   d = 1, seed = 0, m = 1000, n = 500, ask = TRUE) {
-  if (!are_you_sure(ask)) {
-    return();
-  }
 
   set.seed(seed)
   sim_df <- tibble::tribble(
@@ -114,11 +111,16 @@ simulation_instance <- function(k_grid = c(2, 10, 50, 100, 200, 400),
       list(power = 2, m = d, zero.appeal = 0)
     )
 
-  sim_df %>% dplyr::mutate(res = purrr::map(G,
-      ~purrr::map_df(k_grid, kshuffle_mean_sd, G = .x, m = m)
-    )) %>%
+  res <- sim_df %>% dplyr::mutate(res = purrr::map(G,
+                                                   ~purrr::map_df(k_grid, kshuffle_mean_sd, G = .x, m = m)
+  )) %>%
     dplyr::select(-G) %>%
     tidyr::unnest(res)
+  df <- res[, c(4, 5, 6, 7, 1, 1, 3)]
+  names(df) <- c("mean", "sd", "min", "p.max", "model", "param", "K")
+  df$modparam <- interaction( df$param,df$model)
+  df$param <- as.factor(df$param)
+  df
 
 }
 
@@ -157,13 +159,21 @@ simulation_instance_ER <- function(
   p_vec = (1:5)/10, n = 500, m = 1000,
   seed = 0, ask = TRUE) {
   set.seed(seed)
-  tibble::tibble(p = p_vec) %>%
+  res <- tibble::tibble(p = p_vec) %>%
     dplyr::mutate(G = purrr::map(p, ~sample_gnp(n, .x, directed = F))) %>%
     dplyr::mutate(res = purrr::map(G,
-      ~purrr::map_df(k_grid, kshuffle_mean_sd, G = .x, m = m)
+                                   ~purrr::map_df(k_grid, kshuffle_mean_sd, G = .x, m = m)
     )) %>%
     dplyr::select(-G) %>%
     tidyr::unnest(res)
+  df <- res[, c(3, 4, 5, 6)]
+  df$model <- res$p
+  df$param <- "ER"
+  df$K <- res$K
+  df$modparam <- interaction( df$param,df$model)
+  df$param <- as.factor(df$param)
+  names(df)[1:4] <- c("mean", "sd", "min", "p.max")
+  return(df)
 }
 
 #' @title Shuffling Simulation for for Watts-Strogatz graphs
@@ -203,21 +213,26 @@ simulation_instance_WS <- function(
   k_grid = c(2, 10, 50, 100, 200, 400),
   p_vec = c(0, .05, .1, .25, 1), d = 50, n = 500, m = 1000,
   seed = 0, ask = TRUE) {
-  if (!are_you_sure(ask)) {
-    return();
-  }
   set.seed(seed)
-  tibble::tibble(p = p_vec) %>%
+  res <- tibble::tibble(p = p_vec) %>%
     dplyr::mutate(G = purrr::map(p, 
-      ~sample_smallworld(
-        dim = 1, size = n, nei = d, p = .x)
-      )
+                                 ~sample_smallworld(
+                                   dim = 1, size = n, nei = d, p = .x)
+    )
     ) %>%
     dplyr::mutate(res = purrr::map(G,
-      ~purrr::map_df(k_grid, kshuffle_mean_sd, G = .x, m = m)
+                                   ~purrr::map_df(k_grid, kshuffle_mean_sd, G = .x, m = m)
     )) %>%
     dplyr::select(-G) %>%
     tidyr::unnest(res)
+  df <- res[, c(3, 4, 5, 6)]
+  df$model <- res$p
+  df$param <- "WS"
+  df$K <- res$K
+  df$modparam <- interaction( df$param,df$model)
+  df$param <- as.factor(df$param)
+  names(df)[1:4] <- c("mean", "sd", "min", "p.max")
+  return(df)
 }
 
 #' Generate corrupted graph from A with probability p
