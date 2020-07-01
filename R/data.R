@@ -4,7 +4,7 @@
 #' Graph with  nodes from 
 #'
 #' @format igraph object
-#' @source \url{???}
+#' @source \url{http://www-personal.umich.edu/~mejn/netdata/}
 "karate"
 
 #' celegans graph
@@ -12,7 +12,7 @@
 #' Graph with  nodes from 
 #'
 #' @format igraph object
-#' @source \url{???}
+#' @source \url{http://www-personal.umich.edu/~mejn/netdata/}
 "celegans"
 
 #' polblogs graph
@@ -20,7 +20,7 @@
 #' Graph with  nodes from 
 #'
 #' @format igraph object
-#' @source \url{???}
+#' @source \url{http://www-personal.umich.edu/~mejn/netdata/}
 "polblogs"
 
 
@@ -30,7 +30,7 @@
 #' Graph with  nodes from 
 #'
 #' @format igraph object
-#' @source \url{???}
+#' @source \url{https://www.nature.com/articles/nature750}
 "yeast"
 
 
@@ -40,7 +40,7 @@
 #' Graph with  nodes from 
 #'
 #' @format igraph object
-#' @source \url{???}
+#' @source \url{http://www-personal.umich.edu/~mejn/netdata/}
 "arxiv"
 
 
