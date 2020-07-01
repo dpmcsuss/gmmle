@@ -204,7 +204,7 @@ shuffle_gm_sim <- function(graph, cl = NULL,
 #' 
 #' @param data_df A tibble that is a subset of \code{gmmle_data}.
 #' @export
-par_run_all_gm <- function(data_df = NULL,
+par_run_all_gm <- function(nclust = 7, data_df = NULL,
     nmc = 30,
     p_grid = 10^(-seq(0.5, 4, length.out = 8)),
     ask = TRUE) {
