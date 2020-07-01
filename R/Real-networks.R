@@ -188,7 +188,7 @@ shuffle_gm_sim <- function(graph, cl = NULL,
     parallel::clusterExport(cl = cl,
       varlist = list("graph",
         "local_gm_errs", "corrupting_channel"),
-                            envir=environment()))
+                            envir=environment())
     parallel::parLapply(cl, 1:nmc,
       function(s){
         lapply(p_grid, function(p){
