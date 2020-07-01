@@ -102,7 +102,7 @@ get_disag_stat <- function(graph, cl = NULL, m = 500) {
       kshuffle_mean_sd, G = graph, m = m)
   } else {
     parallel::clusterExport(cl = cl, varlist =
-      list("kshuffle_mean_sd", "graph", "tibble"))
+      list("kshuffle_mean_sd", "graph", "tibble", "m"))
     disag <- parallel::parLapply(cl, grid, function(k) {
         kshuffle_mean_sd(k = k, G = graph, m = m)
       })
@@ -122,6 +122,7 @@ get_disag_stat <- function(graph, cl = NULL, m = 500) {
 #' @param nclust Number of parallel clusters to create via
 #'  parallel::makeCluster
 #' @param ask Whether to warn about long run times.
+#' @export
 par_run_all_disag <- function(nclust = 7, ask = TRUE){
   if (!are_you_sure(ask)) {
     return();
@@ -132,7 +133,7 @@ par_run_all_disag <- function(nclust = 7, ask = TRUE){
   parallel::clusterEvalQ(cl, library(iGraphMatch))
   parallel::clusterEvalQ(cl, library(Matrix))
   disag_data <- purrr::map_df(gmmle_data()$name, 
-    get_disag_stat, cl, m=3)
+    get_disag_stat, cl, m=500)
   parallel::stopCluster(cl)
   disag_data
 }
@@ -224,7 +225,7 @@ par_run_all_gm <- function(data_df = NULL,
   parallel::clusterEvalQ(cl, library(Matrix))
 
   res_df <- data_df %>%
-    dplyr::mutate(res = purrr::map(name, shuffle_gm_sim,
+    dplyr::mutate(results = purrr::map(name, shuffle_gm_sim,
       cl = cl, nmc = nmc, p_grid = p_grid, ask = FALSE))
   
   parallel::stopCluster(cl)
@@ -345,7 +346,7 @@ plot_matching_errors <- function(
   }
 
 
-  binded_res <- realnet_error_df %>%
+  binded_res <- data_df %>%
     dplyr::mutate(err = results %>%
       purrr::map(convert_gmresults_to_df, p_grid)) %>%
     dplyr::select(-results) %>% tidyr::unnest(err) %>%
